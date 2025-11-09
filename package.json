@@ -1,0 +1,23 @@
+{
+  "name": "mern-template",
+  "version": "1.0.0",
+  "description": "MERN TEMPLATE",
+  "main": "index.js",
+  "scripts": {
+    "setup": "npm run install-all && npm run copy-env",
+    "install-all": "cd server && npm install && cd ../client && npm install && cd ..",
+    "copy-env": "cp server/.env.example server/.env && echo '.env copied ✅' || echo '⚠️ .env already exists, skipping...'",
+
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
