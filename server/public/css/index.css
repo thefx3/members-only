@@ -11,14 +11,14 @@
     color: #333;
   }
   
-  .login-container, .create-account-container {
+  .login-container, .register-container {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top:50px;
   }
   
-  .login-card, .create-account-card {
+  .login-card, .register-card {
     background: white;
     padding: 2.5rem 3rem;
     border-radius: 16px;
@@ -27,7 +27,7 @@
     text-align: center;
   }
   
-  .login-card h1, .create-account-card h1 {
+  .login-card h1, .register-card h1 {
     margin-bottom: 0.5rem;
     color: #3a8df5;
   }
@@ -37,19 +37,19 @@
     color: #666;
   }
   
-  .login-form, .create-account-form{
+  .login-form, .register-form{
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
   
-  .login-form label, .create-account-form label {
+  .login-form label, .register-form label {
     text-align: left;
     font-size: 0.9rem;
     font-weight: 500;
   }
   
-  .login-form input, .create-account-form input {
+  .login-form input, .register-form input {
     padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -57,11 +57,11 @@
     transition: border-color 0.2s ease;
   }
   
-  .login-form input:focus, .create-account-form input:focus {
+  .login-form input:focus, .register-form input:focus {
     border-color: #3a8df5;
   }
   
-  .login-form button, .create-account-form button{
+  .login-form button, .register-form button{
     background-color: #3a8df5;
     color: white;
     font-size: 1rem;
@@ -74,7 +74,7 @@
     transition: background-color 0.2s ease;
   }
   
-  .login-form button:hover, .create-account-form button:hover{
+  .login-form button:hover, .register-form button:hover{
     background-color: #2c7de0;
   }
   

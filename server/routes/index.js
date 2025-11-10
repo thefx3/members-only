@@ -9,11 +9,20 @@ router.get('/', (req, res) => {
     res.render('homepage');
 })
 
-router.get('/create-account', (req, res) => {
-    res.render('create-account-page');
+router.get('/register', (req, res) => {
+    res.render('register-page');
 })
 
 // -------------- POST ROUTES ----------------
+
+
+
+
+router.post('/register', (req, res) => {
+
+})
+
+
 
 
 module.exports = router; 
