@@ -2,7 +2,6 @@ require('dotenv').config();
 
 console.log("Environment loaded:", process.env.DB_HOST, process.env.DB_DATABASE);
 
-
 const path = require("node:path");
 const express = require('express');
 const app = express();
