@@ -7,7 +7,13 @@ const { validPassword } = require('../utils/passwordUtils');
 
 const LocalFunction = async (email, password, done) => {
     try {
-      const result = await connection.query('SELECT * FROM users WHERE email = $1', [email]);
+      const normalizedEmail = email?.trim();
+
+      if (!normalizedEmail) {
+        return done(null, false, { message: 'Email is required.' });
+      }
+
+      const result = await connection.query('SELECT * FROM users WHERE email = $1', [normalizedEmail]);
       const user = result.rows[0];
   
       if (!user) {
@@ -27,7 +33,14 @@ const LocalFunction = async (email, password, done) => {
     }
 };
   
-const strategy = new LocalStrategy(LocalFunction);
+const strategy = new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: false,
+  },
+  LocalFunction,
+);
 passport.use(strategy);
 
 

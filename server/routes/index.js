@@ -1,23 +1,48 @@
 const { Router } = require("express");
 const router = Router();
+const passport = require('passport');
 const connection = require('../auth/db');
 const { genPassword } = require('../utils/passwordUtils');
 
 
+const renderHome = (req, res) => {
+    const { loginError } = req.query;
+    res.render('homepage', { loginError });
+};
+
 // -------------- GET ROUTES ----------------
-router.get('/', (req, res) => {
-    res.render('homepage');
-})
+router.get('/', renderHome);
 
 router.get('/register', (req, res) => {
     res.render('register-page');
 })
 
 router.get('/login', (req, res) => {
-    res.render('homepage');
+    renderHome(req, res);
 })
 
+router.get('/login-success', (req, res, next) => {
+    if (!req.isAuthenticated || !req.isAuthenticated()) {
+        return res.redirect('/login');
+    }
+
+    return res.render('login-success', { user: req.user });
+});
+
+
+router.get('/login-failure', (req, res, next) => {
+    res.render('login-failure');
+});
+
 // -------------- POST ROUTES ----------------
+
+router.post(
+    '/login',
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/?loginError=1'
+    })
+);
 
 router.post('/register', async (req, res, next) => {
     try {
@@ -48,6 +73,24 @@ router.post('/register', async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
+});
+
+
+router.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+
+        req.session.destroy((sessionErr) => {
+            if (sessionErr) {
+                return next(sessionErr);
+            }
+
+            res.clearCookie('connect.sid');
+            return res.redirect('/login');
+        });
+    });
 });
 
 

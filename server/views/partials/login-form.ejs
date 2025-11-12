@@ -4,6 +4,10 @@
     <h1>Welcome back 👋</h1>
     <p class="subtitle">Please log in to continue</p>
 
+    <% if (loginError) { %>
+      <p class="login-error">Email or password incorrect.</p>
+    <% } %>
+
     <form action="/login" method="POST" class="login-form">
       <label for="email">Email</label>
       <input type="text" id="email" name="email" required>
