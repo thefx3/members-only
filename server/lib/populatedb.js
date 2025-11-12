@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-const pool = require('../auth/db');
+const pool = require('../lib/db');
 
 async function initializePosts() {
   await pool.query (`
