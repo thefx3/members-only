@@ -1,6 +1,5 @@
 const queries = require('../lib/queries');
-
-const genPassword = require('../auth/passwordUtils');
+const { genPassword } = require('../auth/passwordUtils');
 // -------------- CONTROLLERS ----------------
 
 async function homePage(req, res) {
@@ -49,17 +48,11 @@ async function loginPage(req, res) {
     res.render('login-page', { loginError, user: req.user });
 }
 
-async function loginSuccess(req, res) {
+function loginSuccess(req, res) {
     if (!req.isAuthenticated || !req.isAuthenticated()) {
         return res.redirect('/login');
     }
-
-    try {
-        const posts = await queries.getAllPosts();
-        return res.render('homepage', { user: req.user, posts });
-    } catch (err) {
-        return next(err);
-    }
+    return res.redirect('/');
 }
 
 async function loginFailure(req, res) {
@@ -70,7 +63,7 @@ async function registerPage(req, res) {
     res.render('register-page', { user: req.user}); 
 }
 
-async function registerForm(req, res) {
+async function registerForm(req, res, next) {
     try {
         const { firstname, lastname, email, password  } = req.body;
 
@@ -78,15 +71,16 @@ async function registerForm(req, res) {
             return res.status(400).send('All the fields are required');
         }
 
-        const existingUser = queries.selectUserBy('email');
+        const normalizedEmail = email.trim().toLowerCase();
+        const existingUser = await queries.findUserByEmail(normalizedEmail);
 
-        if (existingUser.rowCount > 0) {
+        if (existingUser) {
             return res.status(409).send('This email is already used.');
         }
 
         const { salt, hash } = genPassword(password);
 
-        queries.addNewUser(firstname, lastname, email, hash, salt);
+        await queries.addNewUser(firstname, lastname, normalizedEmail, hash, salt);
 
         return res.redirect('/login');
 
@@ -95,7 +89,7 @@ async function registerForm(req, res) {
     }
 }
 
-async function logoutPage(req, res) {
+function logoutPage(req, res, next) {
     req.logout((err) => {
         if (err) {
             return next(err);
@@ -111,8 +105,6 @@ async function logoutPage(req, res) {
         });
     });
 }
-
-
 
 module.exports = {
     homePage, 

@@ -1,4 +1,4 @@
-const connection = require('../lib/db');
+const connection = require('./db');
 
 async function getAllPosts() {
     const { rows } = await connection.query(
@@ -14,16 +14,16 @@ async function addNewUser (firstname, lastname, email, hash, salt) {
     );
 }
 
-async function selectUserBy(value) {
+async function findUserByEmail(email) {
     const { rows } = await connection.query(
-        `SELECT * FROM users WHERE ${value} = $1`,
-        [value]
+        'SELECT * FROM users WHERE email = $1',
+        [email]
     );
-    return rows;
+    return rows[0] || null;
 }
 
 module.exports = {
     getAllPosts, 
     addNewUser,
-    selectUserBy
+    findUserByEmail,
 }

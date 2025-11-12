@@ -10,7 +10,7 @@ router.get('/login', authController.loginPage); //Done in authController
 router.get('/register', authController.registerPage); //Done in authController
 router.get('/logout', authController.logoutPage); //Done in authController
 
-router.get('/login-success', authController.homePage); //Done in authController
+router.get('/login-success', authController.loginSuccess); //Done in authController
 router.get('/login-failure', authController.loginFailure);
 
 
