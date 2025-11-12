@@ -1,29 +1,36 @@
 require('dotenv').config();
-
 console.log("Environment loaded:", process.env.DB_HOST, process.env.DB_DATABASE);
 
+//Import of external modules
 const path = require("node:path");
-const { initializePosts} = require("./auth/populatedb");
 const express = require('express');
-const app = express();
 const session = require('express-session');
-const passport = require('passport');
-const routes = require('./routes');
-const connection = require('./auth/db');
 const pgSession = require('connect-pg-simple')(session);
+const passport = require('passport');
 
-//Important to config the local strategy for passport
+
+//Import of local modules
+const connection = require('./lib/db');
+const { initializePosts} = require('./lib/populatedb');
+const routes = require('./routes');
+
+
+//Config the local strategy for passport
 require('./auth/passport');
 
+//Initialize express app
+const app = express();
+
+//-------------- MIDDLEWARES --------------------------
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+// Set EJS as the templating engine
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
 app.use(express.static(path.join(__dirname, 'public')));
 
-//-------------- SESSION SETUP --------------------------
-
+//-------------- SESSION SETUP ------------------------
 app.use(
     session({
       store: new pgSession({
@@ -41,13 +48,11 @@ app.use(
     })
   );
 
-
-
 //-------------- PASSPORT AUTHENTICATION ----------------
- 
 app.use(passport.initialize());
 app.use(passport.session());
 
+// To make the user object available in all EJS templates
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
@@ -55,8 +60,6 @@ app.use((req, res, next) => {
 
 
 //-------------- ROUTES ---------------------------------
-
-// Imports all of the routes from ./routes/index.js
 app.use(routes);
 
 
