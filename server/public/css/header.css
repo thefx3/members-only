@@ -46,18 +46,13 @@
     background: transparent;
 }
 
-.login-link:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
 .signup-link {
-    background: white;
     color: #3a8df5;
     border-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.signup-link:hover {
+.signup-link:hover, .login-link:hover {
     background: #e8f2ff;
     color: #1f6cd4;
 }

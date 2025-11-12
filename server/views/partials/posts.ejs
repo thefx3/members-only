@@ -1,18 +1,20 @@
 <section class="posts-list">
-  <% if (posts && posts.length) { %>
-    <% posts.forEach((post) => { %>
-      <article class="post-card">
-        <header>
-          <h2><%= post.title %></h2>
-          <p class="post-meta">
-            Publié par <strong><%= post.author || 'Anonyme' %></strong>
-            le <%= post.created_at ? new Date(post.created_at).toLocaleDateString() : '—' %>
-          </p>
-        </header>
-        <p><%= post.content %></p>
-      </article>
-    <% }) %>
-  <% } else { %>
-    <p class="empty-posts">Il n'y a pas encore de posts.</p>
-  <% } %>
-</section>
+    <% if (posts && posts.length) { %>
+      <% posts.forEach((post) => { %>
+        <article class="post-card">
+          <header>
+            <h2><%= post.title %></h2>
+            <p class="post-meta">
+              Published by <strong><%= post.author %></strong> on <%= post.date %>
+            </p>
+          </header>
+          <p><%= post.content %></p>
+        </article>
+      <% }) %>
+    <% } else { %>
+      <p class="empty-posts">
+        No posts yet.
+      </p>
+    <% } %>
+  </section>
+  
