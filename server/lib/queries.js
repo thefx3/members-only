@@ -25,5 +25,5 @@ async function findUserByEmail(email) {
 module.exports = {
     getAllPosts, 
     addNewUser,
-    findUserByEmail,
+    findUserByEmail
 }

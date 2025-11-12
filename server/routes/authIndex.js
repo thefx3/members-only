@@ -22,9 +22,7 @@ router.post(
         failureRedirect: '/login?loginError=1'
     })
 );
-
 router.post('/register', authController.registerForm); //Done in authController
-
 
 
 module.exports = router;

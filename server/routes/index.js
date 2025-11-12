@@ -9,9 +9,7 @@ const authIndex = require('../routes/authIndex');
 router.use('/', authIndex)
 
 
-
 // -------------- POST ROUTES ----------------
-
 
 
 module.exports = router; 
