@@ -7,7 +7,12 @@ const { genPassword } = require('../utils/passwordUtils');
 
 const renderHome = (req, res) => {
     const { loginError } = req.query;
-    res.render('homepage', { loginError });
+    res.render('homepage', { loginError, user: req.user });
+};
+
+const renderLoginPage = (req, res) => {
+    const { loginError } = req.query;
+    res.render('login-page', { loginError, user: req.user });
 };
 
 // -------------- GET ROUTES ----------------
@@ -17,16 +22,14 @@ router.get('/register', (req, res) => {
     res.render('register-page');
 })
 
-router.get('/login', (req, res) => {
-    renderHome(req, res);
-})
+router.get('/login', renderLoginPage);
 
 router.get('/login-success', (req, res, next) => {
     if (!req.isAuthenticated || !req.isAuthenticated()) {
         return res.redirect('/login');
     }
 
-    return res.render('login-success', { user: req.user });
+    return res.render('homepage', { user: req.user });
 });
 
 
@@ -39,8 +42,8 @@ router.get('/login-failure', (req, res, next) => {
 router.post(
     '/login',
     passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/?loginError=1'
+        successRedirect: '/login-success',
+        failureRedirect: '/login?loginError=1'
     })
 );
 

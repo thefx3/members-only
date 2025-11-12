@@ -1,8 +1,16 @@
 <header class="main-header">
     <div class="logo">🌐</div>
+
     <nav class="nav-links">
       <a href="/">Home</a>
       <a href="/community">Community</a>
-      <a href="/profile" class="profile-link">F</a>
+
+      <% if (user) { %>
+        <a href="/profile" class="profile-link">F</a>
+      <% } else { %>
+        <a href="/login" class="cta login-link" id="login">Log in</a>
+        <a href="/register" class="cta signup-link" id="signup">Sign up</a>
+      <% } %>
     </nav>
+
   </header>

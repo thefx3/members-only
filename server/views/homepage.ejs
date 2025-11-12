@@ -9,6 +9,8 @@
     <%- include("partials/header") %>
 
     <% if (user) { %>
+<!-- Logged in user view -->
+
       <div class="login-result-container">
         <div class="login-result-card login-success-card">
           <h2>✅ Welcome back, <%= user.first_name || user.last_name || user.email %>!</h2>
@@ -17,8 +19,11 @@
           <a href="/logout" style="background-color:#e74c3c;">Log out</a>
         </div>
       </div>
+
     <% } else { %>
-      <%- include("partials/login-form") %>
+<!-- Guest user view -->
+ 
+     <div class="grid">Hello there! You are not logged in but you can still see the posts</div>
     <% } %>
   </body>
 </html>
