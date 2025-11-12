@@ -1,12 +1,12 @@
 <html>
   <head>
-    <title>Register Page</title>
+    <title>New a post</title>
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/index.css">
   </head>
 
   <body>
     <%- include("partials/header") %>
-    <%- include("partials/register-form") %>
+    <%- include("partials/new-post-form", { formError, formData }) %>
   </body>
 </html>
