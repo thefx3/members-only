@@ -3,12 +3,9 @@ const router = Router();
 const passport = require('passport');
 const connection = require('../auth/db');
 const { genPassword } = require('../utils/passwordUtils');
+const indexController = require('../controllers/indexController');
+const queries = require('../lib/queries');
 
-
-const renderHome = (req, res) => {
-    const { loginError } = req.query;
-    res.render('homepage', { loginError, user: req.user });
-};
 
 const renderLoginPage = (req, res) => {
     const { loginError } = req.query;
@@ -16,7 +13,7 @@ const renderLoginPage = (req, res) => {
 };
 
 // -------------- GET ROUTES ----------------
-router.get('/', renderHome);
+router.get('/', indexController.renderHomePage);
 
 router.get('/register', (req, res) => {
     res.render('register-page');
@@ -24,12 +21,17 @@ router.get('/register', (req, res) => {
 
 router.get('/login', renderLoginPage);
 
-router.get('/login-success', (req, res, next) => {
+router.get('/login-success', async (req, res, next) => {
     if (!req.isAuthenticated || !req.isAuthenticated()) {
         return res.redirect('/login');
     }
 
-    return res.render('homepage', { user: req.user });
+    try {
+        const posts = await queries.getAllPosts();
+        return res.render('homepage', { user: req.user, posts });
+    } catch (err) {
+        return next(err);
+    }
 });
 
 
