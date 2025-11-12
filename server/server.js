@@ -3,6 +3,7 @@ require('dotenv').config();
 console.log("Environment loaded:", process.env.DB_HOST, process.env.DB_DATABASE);
 
 const path = require("node:path");
+const { initializePosts} = require("./auth/populatedb");
 const express = require('express');
 const app = express();
 const session = require('express-session');
@@ -62,7 +63,22 @@ app.use(routes);
 
 // -------------- SERVER --------------------------------
  
+const PORT = 3000;
+(async () => {
+  try {
+    await initializePosts();
+    app.listen(PORT, () => {
+      console.log(`✅ App listening on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Database initialization failed:", err);
+  }
+})();
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error
+  res.status(err.statusCode || 500).send(err.message);
 });
+
