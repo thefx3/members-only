@@ -4,14 +4,14 @@ const pool = require('../lib/db');
 async function initializePosts() {
   await pool.query (`
     CREATE TABLE IF NOT EXISTS posts (
-    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    idpost INTEGER REFERENCES users(id),
-    email TEXT NOT NULL,
+    idpost INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    iduser INTEGER REFERENCES users(id),
+    email TEXT,
     author VARCHAR(255),
     title VARCHAR(255),
     content TEXT,
     date TIMESTAMP
-    );
+);
   `);
 
   const { rows } = await pool.query("SELECT COUNT(*) FROM posts;");
@@ -39,8 +39,12 @@ async function initializePosts() {
     ];
 
     for (const post of defaultPosts) {
-      await pool.query("INSERT INTO posts (email, author, title, content, date ) VALUES ($1, $2, $3, $4, $5)", 
-        [post.email, post.author, post.title, post.content, post.date]);
+      await pool.query(
+        `INSERT INTO posts (iduser, email, author, title, content, date)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [null, post.email, post.author, post.title, post.content, post.date]
+      );
+      
     }
     console.log("Default posts inserted successfully!");
 

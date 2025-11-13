@@ -1,7 +1,7 @@
 <section class="posts-list">
     <% if (posts && posts.length) { %>
       <% posts.forEach((post) => { 
-        const canEdit = (user && user.id === post.idpost);
+        const canEdit = (user && user.id === post.iduser);
         const isAdmin = (user && user.role === 'admin');
       %>
         <article class="post-card">

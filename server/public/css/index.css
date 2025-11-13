@@ -400,7 +400,8 @@
 }
 
 /* BUTTON */
-.new-post-form button {
+.new-post-form button, .new-post-form a {
+  text-decoration: none;
   background-color: #3a8df5;
   color: white;
   font-size: 1rem;
@@ -409,14 +410,32 @@
   border-radius: 8px;
   padding: 0.9rem;
   cursor: pointer;
-  margin-top: 1rem;
   transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
-.new-post-form button:hover {
-  background-color: #2c7de0;
-  transform: translateY(-2px);
+.container-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
 }
+
+.new-post-form button:hover{
+  background-color: #159938;
+  transform: translateY(2px);
+}
+
+.new-post-form a:hover {
+  background-color: #2c7de0;
+  transform: translateY(2px);
+}
+.new-post-form .delete-post-link:hover {
+  background-color: #c0392b;
+  transform: translateY(2px);
+
+}
+
 
 /* Small fade animation */
 @keyframes fadeIn {

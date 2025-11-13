@@ -1,0 +1,31 @@
+<main class="new-post-container">
+    <div class="post-card">
+      <h1>Update your post</h1>
+      <p class="subtitle">and share your ideas</p>
+  
+      <% if (formError) { %>
+        <p class="form-error"><%= formError %></p>
+      <% } %>
+  
+      <form action="/update-post/<%= post.idpost %>" method="POST" class="new-post-form">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value="<%= post.title %>"
+          required
+        >
+  
+        <label for="content">Message</label>
+        <textarea id="content" name="content" required><%= post.content %></textarea>
+  
+        <div class="container-btn">
+          <a href="/">Cancel</a>
+          <a href="/delete-post/<%= post.idpost %>" class="delete-post-link">Delete</a>
+          <button type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  

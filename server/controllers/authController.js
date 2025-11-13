@@ -19,8 +19,8 @@ async function homePage(req, res) {
       const posts = rawPosts.map((p) => {
         if (isLoggedIn) {
           return {
-            id: p.id,
             idpost: p.idpost,
+            iduser: p.iduser,
             email: p.email,
             title: p.title || "Untitled",
             content: p.content || "No content available.",
@@ -29,8 +29,8 @@ async function homePage(req, res) {
           };
         } else {
           return {
-            id: p.id,
-            idpost: null,
+            idpost: p.idpost,
+            iduser: null,
             email: null,
             title: "Unavailable Title",
             content: p.content,
