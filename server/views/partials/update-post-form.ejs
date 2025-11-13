@@ -22,7 +22,9 @@
   
         <div class="container-btn">
           <a href="/">Cancel</a>
-          <a href="/delete-post/<%= post.idpost %>" class="delete-post-link">Delete</a>
+          <form action="/delete-post/<%= post.idpost %>" method="POST" onsubmit="return confirm('Delete this post?');">
+            <button type="submit" class="delete-post-link">Delete</button>
+          </form>
           <button type="submit">Update</button>
         </div>
       </form>

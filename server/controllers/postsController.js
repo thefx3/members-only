@@ -69,7 +69,7 @@ async function updatePostPage(req, res, next) {
             return res.status(404).send("Post not found.");
         }
 
-        if (post.iduser !== userId) {
+        if (post.iduser !== userId && !isAdmin(req.user)) {
             return res.status(403).send("Not allowed to edit.");
         }
 
@@ -117,7 +117,7 @@ async function updatePost(req, res, next) {
     }
 }
 
-async function deleteSinglePost(idpost, iduser) {
+async function deleteSinglePost(req, res, next) {
     if (!ensureAuthenticated(req, res)) {
         return;
     }
@@ -126,10 +126,23 @@ async function deleteSinglePost(idpost, iduser) {
     const userId = req.user.id;
 
     try {
-        await queries.deleteSinglePost(postId, userId);
+        const { rows } = await queries.getSinglePost(postId);
+        const post = rows[0];
+
+        if (!post) return res.status(404).send("Post not found.");
+
+        if (post.iduser !== userId && !isAdmin(req.user)) {
+            console.log('Access denied x1');
+            return res.status(403).send("Not allowed to delete.");
+
+        }
+
+        await queries.deleteSinglePost(postId);
+        await queries.getAllPosts(); // Refresh posts list
+        console.log('Success');
         return res.redirect('/');
     } catch (err) {
-        return next(err);
+        next(err);
     }
 }
 
@@ -137,5 +150,6 @@ module.exports = {
     postPage,
     createPost,
     updatePostPage,
-    updatePost
+    updatePost,
+    deleteSinglePost
 };

@@ -51,10 +51,10 @@ async function updatePost({ idpost, iduser, title, content }) {
     return result.rows[0] || null;
 }
 
-async function deleteSinglePost(idpost, iduser) {
+async function deleteSinglePost(idpost) {
     await connection.query(
-        `DELETE FROM posts WHERE idpost = $1 AND iduser = $2`,
-        [idpost, iduser]
+        `DELETE FROM posts WHERE idpost = $1`,
+        [idpost]
     );
 }
 
