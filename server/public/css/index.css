@@ -272,9 +272,6 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  color: #555;
-  margin-top: -10px;
-  margin-bottom: 20px;
   font-size: 1rem;
 }
 
@@ -286,7 +283,6 @@
   padding: 8px 12px;
   border-radius: 8px;
   color: #fff;
-  display: none; /* cachés par défaut */
   transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
@@ -301,21 +297,16 @@
   padding: 8px 12px;
   border-radius: 8px;
   color: #fff;
-  background-color: #e74c3c;
-  display: none; 
+  border: none;
+  background-color: #c0392b;
   transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
-/* Apparition du bouton au survol de la card */
-.post-card:hover .edit-post,
-.post-card:hover .delete-post-link {
-  display: inline-block;
-}
 
 .delete-post-link:hover {
   cursor: pointer;
   opacity: 0.9;
-  background-color: #c0392b;
+  background-color: rgba(74, 74, 74, 0.884);
 }
 
 /* Statuts */
@@ -421,7 +412,6 @@
   min-height: 120px;
 }
 
-/* BUTTON */
 .new-post-form button,
 .new-post-form a,
 .new-post-form .delete-post-link {
