@@ -268,10 +268,14 @@
 
 }
 
-.post-card:hover {
-  .edit-post {
-    display: inline;
-  }
+.header-subline {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: #555;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
 }
 
 /* Bouton EDIT */
@@ -282,18 +286,36 @@
   padding: 8px 12px;
   border-radius: 8px;
   color: #fff;
-  display: none; /* caché par défaut */
+  display: none; /* cachés par défaut */
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
-/* Hover */
-.edit-post:hover {
-  cursor: pointer;
+.edit-post:hover{
   opacity: 0.9;
 }
 
+.delete-post-link {
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  background-color: #e74c3c;
+  display: none; 
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
 /* Apparition du bouton au survol de la card */
-.post-card:hover .edit-post {
-  display: inline;
+.post-card:hover .edit-post,
+.post-card:hover .delete-post-link {
+  display: inline-block;
+}
+
+.delete-post-link:hover {
+  cursor: pointer;
+  opacity: 0.9;
+  background-color: #c0392b;
 }
 
 /* Statuts */
@@ -400,8 +422,9 @@
 }
 
 /* BUTTON */
-.new-post-form button, .new-post-form a {
-  text-decoration: none;
+.new-post-form button,
+.new-post-form a,
+.new-post-form .delete-post-link {
   background-color: #3a8df5;
   color: white;
   font-size: 1rem;
@@ -410,6 +433,7 @@
   border-radius: 8px;
   padding: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
   transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
@@ -430,8 +454,8 @@
   background-color: #2c7de0;
   transform: translateY(2px);
 }
-.new-post-form .delete-post-link:hover {
-  background-color: #c0392b;
+
+.new-post-form {
   transform: translateY(2px);
 
 }

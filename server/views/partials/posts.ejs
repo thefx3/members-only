@@ -8,11 +8,19 @@
           <header>
             <div class="header-line">
               <h2><%= post.title %></h2>
+
               <% if (canEdit || isAdmin) { %>
-                <a href="/update-post/<%= post.idpost %>" class="edit-post access-granted">Edit</a>
+                <div class="header-subline">
+                  <a href="/update-post/<%= post.idpost %>" class="edit-post access-granted">Edit</a>
+                  <form action="/delete-post/<%= post.idpost %>" method="POST">
+                    <button type="submit" class="delete-post-link">Delete</button>
+                  </form>
+                </div>
               <% } else { %>
                 <a class="edit-post access-denied">Edit</a>
               <% } %>
+
+              
             </div>
 
             <p class="post-meta">
