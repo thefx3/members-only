@@ -39,7 +39,12 @@ async function createPost(req, res, next) {
             req.user.email ||
             'Anonymous';
 
+            console.log(`Current user id : ${req.user.id}`);
+            
+
         await queries.createPost({
+            idpost: req.user.id,
+            email: req.user.email,
             author,
             title,
             content,

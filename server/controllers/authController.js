@@ -7,22 +7,31 @@ async function homePage(req, res) {
       const rawPosts = await queries.getAllPosts();
       const isLoggedIn = Boolean(req.user);
   
+      const formatDate = (value) =>
+        value
+          ? new Date(value).toLocaleDateString("fr-FR", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          : "Unknown date";
+
       const posts = rawPosts.map((p) => {
         if (isLoggedIn) {
           return {
+            id: p.id,
+            idpost: p.idpost,
+            email: p.email,
             title: p.title || "Untitled",
             content: p.content || "No content available.",
             author: p.author || "Anonymous",
-            date: p.created_at
-              ? new Date(p.created_at).toLocaleDateString("fr-FR", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })
-              : "Unknown date",
+            date: formatDate(p.created_at),
           };
         } else {
           return {
+            id: p.id,
+            idpost: null,
+            email: null,
             title: "Unavailable Title",
             content: p.content,
             author: "Member of the community",

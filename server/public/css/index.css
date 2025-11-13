@@ -124,8 +124,7 @@
   padding: 1.8rem 2rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
   line-height: 1.2;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: pointer;
+  transition: all 0.3s ease;
   border-top: 4px solid #3a8df5;
 }
 
@@ -211,7 +210,7 @@
   margin: 2rem auto;
 }
 
-.create-post {
+.new-post {
   font-size: 1.2rem;
   font-weight: 600;
   padding: 12px 16px;
@@ -220,12 +219,12 @@
   color: rgb(255, 255, 255);
 }
 
-.create-post:hover {
+.new-post:hover {
   cursor: pointer;
   background-color: #2c7de0;
 }
 
-.create-post:active {
+.new-post:active {
   transform: scale(0.98);
   background-color: #1e5bb8;
 }
@@ -258,6 +257,62 @@
 
 .guest {
   background-color: #2ecc71;
+}
+
+.header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+
+}
+
+.post-card:hover {
+  .edit-post {
+    display: inline;
+  }
+}
+
+/* Bouton EDIT */
+.edit-post {
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  display: none; /* caché par défaut */
+}
+
+/* Hover */
+.edit-post:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+/* Apparition du bouton au survol de la card */
+.post-card:hover .edit-post {
+  display: inline;
+}
+
+/* Statuts */
+.edit-post.access-denied {
+  background-color: #5a5a5a;
+}
+
+.edit-post.access-granted {
+  background-color: #1eb84c;
+}
+
+/* Hover spécifiques */
+.edit-post.access-granted:hover {
+  background-color: #159938;
+}
+
+.edit-post.access-denied:hover {
+  cursor: not-allowed;
+  background-color: #4a4a4a;
 }
 
 

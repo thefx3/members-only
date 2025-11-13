@@ -4,7 +4,7 @@ const router = Router();
 const postsController = require("../controllers/postsController");
 
 // ----------- GET ROUTES --------------
-router.get('/create-post', postsController.postPage);
+router.get('/new-post', postsController.postPage);
 
 
 

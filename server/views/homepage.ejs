@@ -11,7 +11,7 @@
     <% if (isLoggedIn) { %>
       <div class="welcome-banner">
         <h2>👋 Welcome back, <%= user.first_name || user.last_name || user.email %>!</h2>
-        <a href='/create-post' class="create-post">+ New post</a>
+        <a href='/new-post' class="new-post">+ New post</a>
       </div>
     <% } else { %>
       <div class="not-logged-in">
@@ -19,6 +19,6 @@
       </div>
     <% } %>
 
-    <%- include("partials/posts", { posts }) %>
+    <%- include("partials/posts", { posts, user }) %>
   </body>
 </html>

@@ -9,7 +9,7 @@ function ensureAuthenticated(req, res) {
 }
 
 function isAdmin (req, res) {
-    if (!req.isAuthenticated || !req.isAuthenticated() || !req.user.is_admin) {
+    if (!req.isAuthenticated || !req.isAuthenticated() || !req.user.role !== 'admin') {
         res.status(403).send('Access denied. You dont have the authorized access.');
         return false;
     }
@@ -17,7 +17,7 @@ function isAdmin (req, res) {
 }
 
 function isUser (req, res) {
-    if (!req.isAuthenticated || !req.isAuthenticated() || !req.user.is_user) {
+    if (!req.isAuthenticated || !req.isAuthenticated() || !req.user.role !== 'user') {
         res.status(403).send('Access denied. You dont have the authorized access.');
         return false;
     }
